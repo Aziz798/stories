@@ -12,8 +12,8 @@ export default async function StoryList() {
                     stories.map(story => {
                         return (
                             <div key={story.id} className="carousel-item w-full flex justify-center items-center">
-                                <div className="card w-96 bg-base-100 shadow-xl">
-                                    <figure><Image src={story.photoUrl} alt={story.title} width={300} height={300} /></figure>
+                                <div className="card w-3/4 bg-base-100 shadow-xl">
+                                    <figure><Image src={story.photoUrl} alt={story.title} width={500} height={500} loading="lazy" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title">{story.title}</h2>
                                         <p>{story.description}</p>
