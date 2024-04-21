@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "npx drizzle-kit push:pg"
+    "db:push": "npx drizzle-kit push:pg",
+    "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.0.1",
@@ -15,13 +16,18 @@
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.8",
     "next": "14.2.2",
+    "pg": "^8.11.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-icons": "^5.1.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
+    "daisyui": "^4.10.2",
     "drizzle-kit": "^0.20.16",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
