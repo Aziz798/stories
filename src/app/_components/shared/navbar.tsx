@@ -22,7 +22,7 @@ export default function Navbar() {
                             <h2>Hello {user?.username}</h2>
                         </div>
                         <div>
-                            <UserButton afterSignOutUrl="/" />
+                            <UserButton  afterSignOutUrl="/"  />
                         </div>
                     </div>
                 </SignedIn>
