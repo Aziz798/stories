@@ -1,6 +1,7 @@
 import StoryIntroduction from "@/app/_components/story/story";
 import { Chapter } from "@/app/types/definitions";
 import { getStoryById } from "@/server/actions"
+import Image from "next/image";
 
 
 export default async function Story({params}:{params:{id:string}}) {
@@ -12,10 +13,10 @@ export default async function Story({params}:{params:{id:string}}) {
             {
                 allChapters.map(chapter=>{
                     return(
-                        <div>
+                        <div key={chapter.id}>
                             <h1>{chapter.title}</h1>
                             <p>{chapter.content}</p>
-                            {chapter.photoUrl && <img src={chapter.photoUrl} alt={chapter.title}/>}
+                            {chapter.photoUrl && <Image src={chapter.photoUrl} alt={chapter.title} height={500} width={500} loading="lazy" className="w-fit h-fit"/>}
                         </div>
                     )
                 })

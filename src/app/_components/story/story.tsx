@@ -1,5 +1,5 @@
 import { Story } from "@/app/types/definitions";
-
+import Image from "next/image";
 export default function StoryIntroduction({story}: {story: Story}) {
     const date = new Date(story.createdAt)
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -8,7 +8,7 @@ export default function StoryIntroduction({story}: {story: Story}) {
         <div>
             <h1>{story.title}</h1>
             <p>{story.description}</p>  
-            <img src={story.photoUrl} alt={story.title}/>
+            <Image src={story.photoUrl} alt={story.title} width={500} height={500} loading="lazy" className="w-fit h-fit"/>
             <p>{formattedDate}</p>
         </div>
     )
