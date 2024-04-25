@@ -1,10 +1,10 @@
 import { relations } from "drizzle-orm";
-import {  text, boolean, pgTable, varchar, date } from "drizzle-orm/pg-core";
+import {  text, boolean, pgTable, varchar, date, PgUUID } from "drizzle-orm/pg-core";
 import {v4 as uuid} from "uuid";
 
 
 export const story = pgTable("stories",{
-  id : varchar("id",{length: 100}).default(uuid()).primaryKey(),
+  id : varchar("id",{length: 100}).primaryKey(),
   userId : varchar("user_id",{length: 100}).notNull(),
   title : text("title").notNull(),
   description : text("description").notNull(),
@@ -15,7 +15,7 @@ export const story = pgTable("stories",{
 });
 
 export const chapter = pgTable("chapters",{
-  id : varchar("id",{length: 100}).default(uuid()).primaryKey(),
+  id : varchar("id",{length: 100}).primaryKey(),
   storyId : varchar("story_id",{length: 100}).references(() => story.id).notNull(),
   userId : varchar("user_id",{length: 100}).notNull(),
   title : text("title").notNull(),

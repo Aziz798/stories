@@ -19,3 +19,12 @@ export type Chapter = {
     createdAt: string;
     updatedAt: string;
 }
+export type ChapterState = {
+    errors?:{
+        storyId?:string[],
+        title?:string[],
+        content?:string[],
+        photoUrl?:string[],
+    };
+    message?:string|null;
+}

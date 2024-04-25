@@ -1,7 +1,7 @@
 
 import { Suspense } from "react";
 import StoryList from "../_components/dashboard/storyList";
-import StoryListSkeleton from "../_components/shared/skeletons";
+import {StoryListSkeleton} from "../_components/shared/skeletons";
 export default function Dashboard() {
     return (
         <div>

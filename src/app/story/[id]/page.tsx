@@ -1,26 +1,22 @@
-import StoryIntroduction from "@/app/_components/story/story";
+import Chapters from "@/app/_components/story/chapters";
+import StoryIntroduction from "@/app/_components/story/storyIntoduction";
 import { Chapter } from "@/app/types/definitions";
-import { getStoryById } from "@/server/actions"
-import Image from "next/image";
-
+import { getStoryByIdWithChapters } from "@/app/lib/actions"
+import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function Story({params}:{params:{id:string}}) {
-    const story = await getStoryById(params.id);
+    const story = await getStoryByIdWithChapters(params.id);
     const allChapters : Chapter[] = story.flatMap(storyItem => storyItem.chapters || []);
+    const {userId} = auth()
     return(
         <div>
-            <StoryIntroduction story={story[0].stories}/>
-            {
-                allChapters.map(chapter=>{
-                    return(
-                        <div key={chapter.id}>
-                            <h1>{chapter.title}</h1>
-                            <p>{chapter.content}</p>
-                            {chapter.photoUrl && <Image src={chapter.photoUrl} alt={chapter.title} height={500} width={500} loading="lazy" className="w-fit h-fit"/>}
-                        </div>
-                    )
-                })
-            }
+            <Chapters chapters={allChapters}/>
+            <div className="text-center mt-7 mb-7">
+                {
+                    !story[0].stories.completed && (<Link className="btn btn-lg btn-outline btn-accent" href={`/story/${params.id}/new-chapter`}>Right the next chapter </Link>) 
+                }
+            </div>
         </div>
     )
 }

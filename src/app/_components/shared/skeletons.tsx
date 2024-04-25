@@ -1,4 +1,4 @@
-export default function StoryListSkeleton() {
+export function StoryListSkeleton() {
     return (
         <div className="flex justify-center w-full h-full">
             <div className="flex flex-col gap-4 w-full items-center">
@@ -8,5 +8,11 @@ export default function StoryListSkeleton() {
             <div className="skeleton h-4 w-full"></div>
         </div>
         </div>
+    )
+}
+
+export function StoryIntroductionSkeleton(){
+    return(
+        <div className="skeleton w-screen h-screen"></div>
     )
 }

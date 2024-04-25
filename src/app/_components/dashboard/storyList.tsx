@@ -1,4 +1,4 @@
-import {getAllStories} from "@/server/actions";
+import {getAllStories} from "@/app/lib/actions";
 import Image from "next/image";
 import Link from "next/link";
 
