@@ -1,7 +1,8 @@
-
+import { BsFillEmojiWinkFill } from "react-icons/bs";
 import { Suspense } from "react";
 import StoryList from "../_components/dashboard/storyList";
 import {StoryListSkeleton} from "../_components/shared/skeletons";
+import Link from "next/link";
 export default function Dashboard() {
     return (
         <div>
@@ -24,8 +25,12 @@ export default function Dashboard() {
                     </Suspense>
                 </div>
             </div>
-            <div>
-                Create your own STORY
+            <div className=" flex flex-col items-center text-center gap-4 m-5">
+                <h4 className=" flex items-center text-3xl font-semibold gap-3 text-accent">
+                    <span>Unleash your creativity</span> 
+                    <BsFillEmojiWinkFill />
+                </h4>
+                <Link href={"/story/new"} className="btn btn-accent">Create a new story</Link>
             </div>
         </div>
     )
