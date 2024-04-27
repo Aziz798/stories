@@ -17,7 +17,7 @@ export default function Chapters({ chapters }: { chapters: Chapter[] }) {
                                     <div className={`hero min-h-100 bg-base-200 ${roboto.className}`}>
                                         <div className="hero-content flex-row lg:flex-row">
                                             <div>
-                                            <img alt={chapter.title} src={chapter.photoUrl!} className="max-w-sm rounded-lg shadow-2xl h-fit w-fit" />
+                                            <Image alt={chapter.title} src={chapter.photoUrl!} className="max-w-sm rounded-lg shadow-2xl h-fit w-fit" width={500} height={500}/>
                                             </div>
                                             <div>
                                                 <h1 className="text-5xl font-bold">{chapter.title}</h1>
@@ -33,7 +33,7 @@ export default function Chapters({ chapters }: { chapters: Chapter[] }) {
                                                 <p className="py-6">{chapter.content}</p>
                                             </div>
                                             <div>
-                                            <img alt={chapter.title} src={chapter.photoUrl!} className="max-w-sm rounded-lg shadow-2xl" />
+                                            <Image alt={chapter.title} src={chapter.photoUrl!} className="max-w-sm rounded-lg shadow-2xl" width={500} height={500} />
                                             </div>
                                         </div>
                                     </div>

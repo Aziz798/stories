@@ -24,6 +24,9 @@ export default function Dashboard() {
                     </Suspense>
                 </div>
             </div>
+            <div>
+                Create your own STORY
+            </div>
         </div>
     )
 }

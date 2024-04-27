@@ -2,7 +2,7 @@
 import { chapter, story } from "@/db/schema";
 import db from "../../db/drizzle";
 import { eq } from "drizzle-orm";
-import { ChapterState, Story } from "@/app/types/definitions";
+import { ChapterState, Story, StoryState } from "@/app/types/definitions";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -61,4 +61,44 @@ export async function createChapter(prevState:ChapterState,formData:FormData) {
     }
     revalidatePath(`/story/${storyId}`);
     redirect(`/story/${storyId}`);
+}
+
+const storyForm = z.object({
+    id: z.string(),
+    userId: z.string(),
+    title: z.string({
+        required_error:"Title is required"
+    }).min(3,"Title should at least be 3 characters"),
+    description: z.string({
+        required_error:"Description is required"
+    }).min(10,"Description should be at least 10 characters"),
+    photoUrl: z.string({
+        required_error:"Photo is required"
+    }),
+    completed: z.boolean(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+});
+const StorySchema = storyForm.omit({id:true,createdAt:true,updatedAt:true,completed:true});
+
+export async function createStory(prevState:StoryState,formData:FormData) {
+    const result = StorySchema.safeParse(Object.fromEntries(formData.entries()));
+    if(!result.success){
+        return {
+            errors: result.error.flatten().fieldErrors,
+            message:"missing fields"
+        }
+    }
+    const { userId, title, description, photoUrl } = result.data;
+    try {
+        await db
+            .insert(story)
+            .values({id:uuid(), userId, title, description, photoUrl });
+    } catch (error) {
+        console.log(error);
+        
+        return { message: 'Database Error: Failed to Create Story.' };
+    }
+    revalidatePath(`/user/${userId}`);
+    redirect(`/user/${userId}`);
 }
