@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { db } from "@/db/drizzle";
+
 
 
 const f = createUploadthing();
@@ -28,13 +28,7 @@ export const ourFileRouter = {
             console.log("Upload complete for userId:", metadata.userId);
 
             console.log("file url", file.url);
-            // await db.insert(images).values({
-            //     name: file.name,
-            //     url: file.url,
-            //     userId: metadata.userId
-            // })
-            // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-            return { uploadedBy: metadata.userId };
+            return { photoUrl:file.url };
         }),
 } satisfies FileRouter;
 

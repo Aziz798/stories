@@ -2,7 +2,8 @@
 const nextConfig = {
     images:{
         remotePatterns:[
-            {hostname:"cdn.pixabay.com"}
+            {hostname:"cdn.pixabay.com"},
+            {hostname:""}
         ]
     }
 };

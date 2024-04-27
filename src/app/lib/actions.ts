@@ -29,8 +29,12 @@ const chapterForm = z.object({
     id: z.string(),
     storyId: z.string(),
     userId: z.string(),
-    title: z.string(),
-    content: z.string(),
+    title: z.string({
+        required_error:"Title is required"
+    }).min(3,"Title should at least be 3 characters"),
+    content: z.string({
+        required_error:"Chapter is required"
+    }).min(10,"Chapter should be at least 10 characters"),
     photoUrl: z.string(),
     createdAt: z.string(),
     updatedAt: z.string(),

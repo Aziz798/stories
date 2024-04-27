@@ -1,6 +1,7 @@
 import { StoryIntroductionSkeleton } from "@/app/_components/shared/skeletons";
 import StoryIntroduction from "@/app/_components/story/storyIntoduction";
 import { Suspense } from "react";
+import "@uploadthing/react/styles.css";
 
 export default function StoryLayout({ children, params }: { children: React.ReactNode, params: { id: string } }) {
     return (
