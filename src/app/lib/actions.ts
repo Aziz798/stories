@@ -1,12 +1,13 @@
-'use server'
+'server-only'
 import { chapter, story } from "@/db/schema";
 import db from "../../db/drizzle";
 import { eq } from "drizzle-orm";
-import { ChapterState, Story, StoryState } from "@/app/types/definitions";
+import { Chapter, ChapterState, Story, StoryState } from "@/app/types/definitions";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { v4 as uuid} from "uuid";
+import { run } from "@/utils/gemini";
 
 export async function getAllStories() {
     return await db.select().from(story);
@@ -101,4 +102,9 @@ export async function createStory(prevState:StoryState,formData:FormData) {
     }
     revalidatePath(`/user/${userId}`);
     redirect(`/user/${userId}`);
+}
+
+export async function geminiHelper(story:Story,chapter?:Chapter,userPrompt?:string) {
+    const result = await run("");
+    result.
 }
