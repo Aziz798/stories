@@ -7,7 +7,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { v4 as uuid} from "uuid";
-import { run } from "@/utils/gemini";
+// import { run } from "@/utils/gemini";
 
 export async function getAllStories() {
     return await db.select().from(story);
@@ -104,7 +104,7 @@ export async function createStory(prevState:StoryState,formData:FormData) {
     redirect(`/user/${userId}`);
 }
 
-export async function geminiHelper(story:Story,chapter?:Chapter,userPrompt?:string) {
-    const result = await run("");
-    result.
-}
+// export async function geminiHelper(story:Story,chapter?:Chapter,userPrompt?:string) {
+//     const result = await run("");
+//     result.
+// }
