@@ -7,7 +7,8 @@ const nextConfig = {
         ]
     },
     env:{
-        NEON_DATABASE_URL:process.env.NEON_DATABASE_URL
+        NEON_DATABASE_URL:process.env.NEON_DATABASE_URL,
+        AI_API_KEY:process.env.AI_API_KEY
     }
 };
 

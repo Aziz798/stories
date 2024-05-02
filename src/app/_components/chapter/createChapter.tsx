@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useFormState } from "react-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Image from "next/image";
 
 
 export default function CreateChapter({ storyId }: { storyId: string }) {
@@ -25,6 +26,9 @@ export default function CreateChapter({ storyId }: { storyId: string }) {
                 {/* @ts-ignore */}
                 <button id="photo-button" className="btn btn-outline btn-warning btn-wide" onClick={() => document.getElementById('my_modal_2').showModal()}>{loading ? (<span  id="photo"  className="loading loading-dots loading-lg"></span>) :(<span  id="photo" >Add photo to your new chapter</span>) }</button>
             </div>
+            {
+                        photoUrl!="" && <Image src={photoUrl} alt="photo uploaded" width={400} height={400} loading="lazy"/>
+                    }
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Click the butto to choose a photo</h3>
