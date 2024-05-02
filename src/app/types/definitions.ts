@@ -37,3 +37,14 @@ export type StoryState = {
     };
     message?: string | null;
 }
+export type ChatHistory = {
+    history: {
+        role: "user" | "model";
+        parts: {
+            text: string;
+        }[];
+    }[];
+    generationConfig?: {
+        maxOutputTokens: number;
+    };
+}

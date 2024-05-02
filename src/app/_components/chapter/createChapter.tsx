@@ -10,7 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function CreateChapter({ storyId }: { storyId: string }) {
-    const [photoUrl, setPhotoUrl] = useState("")
+    const [photoUrl, setPhotoUrl] = useState("");
+    const [loading, setLoading] = useState(false);
     const initialState: ChapterState = { message: null, errors: {} };
     const [state, dispatch] = useFormState(createChapter, initialState);
     const user = useUser()
@@ -22,17 +23,19 @@ export default function CreateChapter({ storyId }: { storyId: string }) {
             <div className="text-center text-2xl">Write your next chapter: </div>
             <div className="text-center">
                 {/* @ts-ignore */}
-                <button id="photo" className="btn btn-outline btn-warning btn-wide" onClick={() => document.getElementById('my_modal_2').showModal()}>Add photo to your new chapter</button>
+                <button id="photo-button" className="btn btn-outline btn-warning btn-wide" onClick={() => document.getElementById('my_modal_2').showModal()}>{loading ? (<span  id="photo"  className="loading loading-dots loading-lg"></span>) :(<span  id="photo" >Add photo to your new chapter</span>) }</button>
             </div>
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Click the butto to choose a photo</h3>
-                    <UploadButton endpoint="imageUploader" onClientUploadComplete={(res) => {
+                    <UploadButton endpoint="imageUploader" onUploadProgress={() => {setLoading(true) }} onClientUploadComplete={(res) => {
+                        setLoading(false);
                         setPhotoUrl(res[0].url)
-                        toast.success("photo added")
-                        document.getElementById("photo")?.classList.add("btn-disabled")
+                        toast.success("Photo added")
+                        document.getElementById("photo-button")?.classList.add("btn-disabled")
                         {/*@ts-ignore*/ }
-                        document.getElementById("photo").innerText = "photo added"
+                        document.getElementById("photo").innerText = "Photo added";
+                        
                     }} />
                 </div>
                 <form method="dialog" className="modal-backdrop">
@@ -47,7 +50,7 @@ export default function CreateChapter({ storyId }: { storyId: string }) {
                         state.errors?.title && state.errors?.title.map((error, ind) => <li className="text-error font-semibold" key={ind}>{error}</li>)
                     }
                     <input type="text" placeholder="Chapter Title" className="input input-accent input-bordered input-lg w-full max-w-xl" name="title" />
-                    <input type="hidden" className="input input-accent input-bordered input-lg w-full max-w-xl" name="photoUrl" value={photoUrl} />
+                    <input type="hidden" className="input input-accent input-bordered input-lg w-full max-w-xl" value={photoUrl} />
                     {
                         state.errors?.content && state.errors?.content.map((error, ind) => <li className="text-error font-semibold" key={ind}>{error}</li>)
                     }
