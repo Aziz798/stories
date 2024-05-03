@@ -22,7 +22,8 @@ export default function StoriesSearched() {
         fetchData();
     }, [term])
     return (
-        <div className={`m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-scroll w-1/2 ${stories.length === 0 ? 'hidden' : 'h-[30vh]'}`}>
+       <div className=" flex justify-center">
+         <div className={`absolute grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-scroll w-1/2 ${stories.length === 0 ? 'hidden' : 'h-[30vh]'} bg-slate-500 rounded-e-badge`}>
             {stories.map((story) => (
                 <div key={story.id} className="card w-fit h-45 bg-base-100 shadow-xl image-full">
                     <figure><img src={story.photoUrl} alt={story.title}/></figure>
@@ -36,5 +37,6 @@ export default function StoriesSearched() {
                 </div>
             ))}
         </div>
+       </div>
     )
 }
