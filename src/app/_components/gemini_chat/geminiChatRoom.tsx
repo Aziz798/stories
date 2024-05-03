@@ -5,7 +5,8 @@ import ChatForm from "./chatForm";
 import { useEffect, useState } from "react";
 import { ChatHistory } from "@/app/types/definitions";
 import {  getStoryDescription } from "@/app/lib/actions";
-
+import { IoCopy } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 export default function ChatRoom({ storyId }: { storyId: string }) {
     const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +36,7 @@ export default function ChatRoom({ storyId }: { storyId: string }) {
     return (
         <>
             <div className="dropdown dropdown-top dropdown-end w-full">
-                <div tabIndex={0} role="button" className="btn btn-outline btn-primary btn-wide">Get geminiAi help in writing</div>
+                <div tabIndex={0} role="button" className="btn btn-outline btn-primary btn-wide">Get geminiAi help in writing your chapter</div>
                 <div tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-primary-content rounded-box w-full">
                     {
                         history.history.map((item, index) => {
@@ -67,6 +68,10 @@ export default function ChatRoom({ storyId }: { storyId: string }) {
                                                 Gemini
                                             </div>
                                             <div className="chat-bubble">{item.parts[0].text}</div>
+                                            <button  onClick={()=> {
+                                                navigator.clipboard.writeText(item.parts[0].text);
+                                                toast.info("Copied to clipboard");
+                                            }} className="chat-footer btn btn-sm btn-outline"><IoCopy/> </button>
                                         </div>
                                     )}
                                 </div>

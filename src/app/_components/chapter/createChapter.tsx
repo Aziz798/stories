@@ -9,7 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
 
-
 export default function CreateChapter({ storyId }: { storyId: string }) {
     const [photoUrl, setPhotoUrl] = useState("");
     const [loading, setLoading] = useState(false);
@@ -31,16 +30,20 @@ export default function CreateChapter({ storyId }: { storyId: string }) {
                     }
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">Click the butto to choose a photo</h3>
-                    <UploadButton endpoint="imageUploader" onUploadProgress={() => {setLoading(true) }} onClientUploadComplete={(res) => {
-                        setLoading(false);
-                        setPhotoUrl(res[0].url)
-                        toast.success("Photo added")
-                        document.getElementById("photo-button")?.classList.add("btn-disabled")
-                        {/*@ts-ignore*/ }
-                        document.getElementById("photo").innerText = "Photo added";
-                        
-                    }} />
+                    <h3 className="font-bold text-lg">Click the butto to choose a photo</h3>                    <UploadButton endpoint="imageUploader"
+                        onUploadError={() => {
+                            setLoading(false);
+                            toast.error("Photo upload failed");
+                        }}
+                        onUploadProgress={() => { setLoading(true) }} onClientUploadComplete={(res) => {
+                            setLoading(false);
+                            setPhotoUrl(res[0].url)
+                            toast.success("Photo added")
+                            document.getElementById("photo-button")?.classList.add("btn-disabled")
+                            {/*@ts-ignore*/ }
+                            document.getElementById("photo").innerText = "Photo added";
+
+                        }} />
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>

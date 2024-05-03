@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "./_components/shared/navbar";
 import Footer from "./_components/shared/footer";
+import StoriesSearched from "./_components/shared/stories-searched";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,16 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    
-      <html lang="en">
-        <ClerkProvider>
+
+    <html lang="en">
+      <ClerkProvider>
         <body className={inter.className}>
-          <Navbar/>
+          <Navbar />
+          <StoriesSearched/>
           {children}
-          <Footer/>
-          </body>
-          </ClerkProvider>
-      </html>
+          <Footer />
+        </body>
+      </ClerkProvider>
+    </html>
 
   );
 }

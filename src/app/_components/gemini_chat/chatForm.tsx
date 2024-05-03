@@ -27,6 +27,12 @@ export default function ChatForm({ setHistory, history,setLoading }: { setHistor
                 ...prev,
                 history: [...prev.history, { role: "model", parts: [{ text: answer }] }],
             }));
+            setQuestion({
+                role: "user",
+                parts: [{
+                    text: ""
+                }]
+            });
         } catch (error) {
             console.error(error);
             // Handle error (e.g., display user-friendly message)
@@ -35,7 +41,7 @@ export default function ChatForm({ setHistory, history,setLoading }: { setHistor
     return (
         <form onSubmit={formHandler}>
             <div className="flex gap-1">
-                <textarea placeholder="Bio" className="textarea textarea-bordered textarea-xs w-full max-w-xs" onChange={(e) => setQuestion({ role: "user", parts: [{ text: e.target.value }] })}></textarea>
+                <textarea placeholder="Ask..." className="textarea textarea-bordered textarea-xs w-full max-w-xs" onChange={(e) => setQuestion({ role: "user", parts: [{ text: e.target.value }] })}></textarea>
                 <button className="btn btn-square btn-outline"><IoSendSharp /></button>
             </div>
         </form>

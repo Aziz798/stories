@@ -19,15 +19,10 @@ export const ourFileRouter = {
 
             // If you throw, the user will not be able to upload
             if (!user) throw new UploadThingError("Unauthorized");
-
             // Whatever is returned here is accessible in onUploadComplete as `metadata`
             return { userId: user.userId };
         })
         .onUploadComplete(async ({ metadata, file }) => {
-            // This code RUNS ON YOUR SERVER after upload
-            console.log("Upload complete for userId:", metadata.userId);
-
-            console.log("file url", file.url);
             return { photoUrl:file.url };
         }),
 } satisfies FileRouter;

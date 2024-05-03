@@ -1,7 +1,7 @@
 'server-only';
 import { chapter, story } from "@/db/schema";
 import db from "../../db/drizzle";
-import { eq } from "drizzle-orm";
+import { eq, ilike, or } from "drizzle-orm";
 import { Chapter, ChapterState, Story, StoryState } from "@/app/types/definitions";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
@@ -84,8 +84,9 @@ const storyForm = z.object({
         required_error: "Description is required"
     }).min(10, "Description should be at least 10 characters"),
     photoUrl: z.string({
-        required_error: "Photo is required"
-    }),
+        required_error: "Photo is required",
+        message: "Photo is required"
+    }).regex(/\.(jpg|jpeg|png|gif)$/i, "Only images are allowed").min(1, "Photo is required"),
     completed: z.boolean(),
     createdAt: z.string(),
     updatedAt: z.string(),
@@ -101,20 +102,28 @@ export async function createStory(prevState: StoryState, formData: FormData) {
         }
     }
     const { userId, title, description, photoUrl } = result.data;
+    const id = uuid();
     try {
         await db
             .insert(story)
-            .values({ id: uuid(), userId, title, description, photoUrl });
+            .values({ id, userId, title, description, photoUrl });
     } catch (error) {
         console.log(error);
 
         return { message: 'Database Error: Failed to Create Story.' };
     }
-    revalidatePath(`/user/${userId}`);
-    redirect(`/user/${userId}`);
+    redirect(`/story/${id}/new-chapter`);
 }
-
-// export async function geminiHelper(story:Story,chapter?:Chapter,userPrompt?:string) {
-//     const result = await run("");
-//     result.
-// }
+export async function fetchFilteredStories(query: string|null) {
+    if (query === null) return [];
+    const stories = await db
+    .select({ id: story.id, title: story.title, photoUrl: story.photoUrl, description: story.description })
+    .from(story)
+    .where(or(ilike(story.title, `%${query}%`), ilike(story.description, `%${query}%`)))
+    .execute();
+    return stories;
+}
+export async function storyCompleted(id: string) {
+    await db.update(story).set({ completed: true }).where(eq(story.id, id));
+    redirect(`/story/${id}`);
+}
